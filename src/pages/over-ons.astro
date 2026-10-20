@@ -1,0 +1,95 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import toonbank from '../assets/worsten/toonbank.jpg';
+import gerookt from '../assets/worsten/gerookt.jpg';
+---
+
+<Base titel="Over ons" beschrijving="Al 7 jaar leveren we ambachtelijke droge worsten van topkwaliteit aan horeca en kleinhandel.">
+  <section class="paginakop">
+    <div class="wrap">
+      <p class="kicker">Over ons</p>
+      <h1>Waar smaak traditie wordt.</h1>
+      <p class="lead">
+        Al 7 jaar zijn we trots de leverancier van heerlijke, hoogwaardige droge worsten. Onze reis begon met een
+        passie voor ambachtelijke smaken en een toewijding aan onze klanten in de horeca en kleinhandel.
+      </p>
+    </div>
+  </section>
+
+  <section class="sectie">
+    <div class="wrap duo">
+      <div class="prose">
+        <h2>Niets minder dan de beste kwaliteit</h2>
+        <p>
+          Sinds dag één staat één belofte centraal: niets minder leveren dan de beste kwaliteit. Onze worsten vind je
+          aan de toog van cafés en in de toonbank van winkels, niet in de supermarkt.
+        </p>
+        <p><strong>Wij richten ons niet op particuliere verkoop.</strong> Bent u een zaak? Dan maken we graag kennis.</p>
+
+        <h2>Kwaliteit en service, onze hoogste prioriteit</h2>
+        <p>
+          Onze toewijding aan kwaliteit en service is de kern van ons succes. We geloven dat elke hap die onze klanten
+          nemen, een weerspiegeling is van onze inzet voor perfectie.
+        </p>
+        <p>
+          Elke stap van ons productieproces wordt met zorg en precisie uitgevoerd, zodat elke droge worst die ons
+          atelier verlaat voldoet aan de hoogste normen van smaak en kwaliteit.
+        </p>
+        <a href="/contact" class="btn btn-rood">Neem contact op <span class="pijl">→</span></a>
+      </div>
+
+      <div class="fotos">
+        <Image src={gerookt} alt="Gerookte droge worsten op een olijfhouten plank" widths={[500, 800]} sizes="(max-width: 900px) 90vw, 440px" class="foto-1" />
+        <Image src={toonbank} alt="Toonbankdisplay met droge worsten op geruite achtergrond" widths={[400, 600]} sizes="(max-width: 900px) 60vw, 300px" class="foto-2" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .duo {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+  .prose .btn {
+    margin-top: 1rem;
+  }
+  .fotos {
+    position: relative;
+    padding-bottom: 8rem;
+  }
+  .fotos img {
+    border-radius: var(--radius);
+    border: 8px solid var(--wit);
+    box-shadow: 0 24px 50px rgba(35, 24, 22, 0.14);
+  }
+  .foto-1 {
+    transform: rotate(2deg);
+  }
+  .foto-2 {
+    position: absolute;
+    width: 52%;
+    left: -6%;
+    bottom: 0;
+    transform: rotate(-4deg);
+  }
+  @media (max-width: 900px) {
+    .duo {
+      grid-template-columns: 1fr;
+    }
+    .fotos {
+      max-width: 480px;
+      margin-inline: auto;
+      padding-bottom: 10rem;
+    }
+    .foto-2 {
+      left: 0;
+    }
+  }
+</style>

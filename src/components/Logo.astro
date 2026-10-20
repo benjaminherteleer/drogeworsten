@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import mannetje from '../assets/logo/mannetje.png';
+
+interface Props {
+  klein?: boolean;
+  licht?: boolean;
+}
+const { klein = false, licht = false } = Astro.props;
+---
+
+<span class:list={['logo', { klein, licht }]}>
+  <Image src={mannetje} alt="" width={klein ? 96 : 160} class="logo-man" loading="eager" />
+  <span class="logo-woord">Droge<br />worsten<br /><span class="logo-be">.be</span></span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--rood);
+    text-decoration: none;
+  }
+  .logo-man {
+    width: 3.4rem;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+  .logo-woord {
+    font-family: var(--kop);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+  }
+  .logo-be {
+    margin-left: -0.15em;
+  }
+  .klein .logo-man {
+    width: 2.6rem;
+  }
+  .klein .logo-woord {
+    font-size: 0.86rem;
+  }
+  .licht {
+    color: var(--wit);
+  }
+</style>

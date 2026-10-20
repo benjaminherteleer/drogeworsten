@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://drogeworsten.be/sitemap-index.xml

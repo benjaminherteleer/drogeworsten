@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import { worsten, contact } from '../data/site';
+---
+
+<Base titel="FAVV-goedkeuring" beschrijving="Ons volledige assortiment droge worsten is officieel gecertificeerd door het FAVV.">
+  <section class="paginakop">
+    <div class="wrap">
+      <p class="kicker">Voedselveiligheid</p>
+      <h1>FAVV-gecertificeerd.</h1>
+      <p class="lead">
+        We zijn trots te kunnen melden dat ons volledige assortiment droge worsten officieel gecertificeerd is door
+        het Federaal Agentschap voor de Veiligheid van de Voedselketen (FAVV).
+      </p>
+    </div>
+  </section>
+
+  <section class="sectie">
+    <div class="wrap duo">
+      <div class="prose">
+        <h2>Waarom die certificering telt</h2>
+        <p>
+          De FAVV-certificering garandeert dat onze producten voldoen aan strenge voedselveiligheidsnormen, opgelegd
+          door nationale en Europese regelgeving. Zo weten al onze klanten zeker dat ze veilige en betrouwbare
+          producten ontvangen.
+        </p>
+
+        <h2>Onze verplichtingen</h2>
+        <ul>
+          <li>Regelmatige inspectie door het FAVV, waarbij onze productie en processen grondig worden gecontroleerd.</li>
+          <li>Voldoen aan alle vereisten voor hygiëne, verwerking en verpakking van voedselproducten.</li>
+          <li>Ons continu inzetten om onze processen te verbeteren en de hoogste standaarden te halen.</li>
+        </ul>
+
+        <p>
+          Vragen over onze certificering of producten? Mail naar
+          <a href={`mailto:${contact.email}`}>{contact.email}</a> of bel <a href={contact.telefoonLink}>{contact.telefoon}</a>.
+        </p>
+      </div>
+
+      <aside class="kaart">
+        <h2>Gecertificeerd assortiment</h2>
+        <ul>
+          {worsten.map((w) => <li><span>{w.naam}</span><span class="vink" aria-label="gecertificeerd">✓</span></li>)}
+        </ul>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .duo {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+  .kaart {
+    position: sticky;
+    top: 100px;
+    background: var(--wit);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border-top: 10px solid var(--rood);
+  }
+  .kaart h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .kaart ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .kaart li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--lijn);
+    font-family: var(--kop);
+    font-weight: 700;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+  }
+  .kaart li:last-child {
+    border-bottom: 0;
+  }
+  .vink {
+    display: grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background: var(--rood);
+    color: var(--wit);
+    font-size: 0.9rem;
+  }
+  .prose a {
+    color: var(--rood);
+    font-weight: 500;
+  }
+  @media (max-width: 900px) {
+    .duo {
+      grid-template-columns: 1fr;
+    }
+    .kaart {
+      position: static;
+    }
+  }
+</style>

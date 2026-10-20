@@ -1,0 +1,331 @@
+/* Drogeworsten.be — rood, room en (af en toe) de geruite tafeldoek. */
+
+:root {
+  --rood: #d3202a;
+  --rood-diep: #a41e2b;
+  --room: #fbf6ee;
+  --room-2: #f3eadb;
+  --wit: #ffffff;
+  --inkt: #231816;
+  --inkt-zacht: #5b4a45;
+  --lijn: rgba(35, 24, 22, 0.12);
+
+  --kop: 'Rubik', system-ui, sans-serif;
+  --tekst: 'DM Sans', system-ui, sans-serif;
+
+  --radius: 22px;
+  --breed: 1200px;
+  --ruit: 44px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--room);
+  color: var(--inkt);
+  font-family: var(--tekst);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--kop);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(3rem, 8.5vw, 7rem);
+}
+h2 {
+  font-size: clamp(2.2rem, 5vw, 3.75rem);
+}
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+::selection {
+  background: var(--rood);
+  color: var(--wit);
+}
+
+:focus-visible {
+  outline: 3px solid var(--rood);
+  outline-offset: 3px;
+}
+
+.wrap {
+  width: min(100% - 32px, var(--breed));
+  margin-inline: auto;
+}
+
+.sectie {
+  padding-block: clamp(4rem, 9vw, 7.5rem);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--kop);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rood);
+  margin-bottom: 1.1rem;
+}
+.kicker::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background-color: var(--wit);
+  background-image: var(--ruit-patroon);
+  background-size: 7px 7px;
+  box-shadow: 0 0 0 1.5px var(--rood);
+}
+
+.lead {
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  color: var(--inkt-zacht);
+  max-width: 38em;
+}
+
+/* De ruit: twee halfdoorzichtige banen over elkaar = echte vichy. */
+:root {
+  --ruit-patroon: linear-gradient(90deg, rgba(211, 32, 42, 0.55) 50%, transparent 50%),
+    linear-gradient(rgba(211, 32, 42, 0.55) 50%, transparent 50%);
+}
+.ruit {
+  background-color: var(--wit);
+  background-image: var(--ruit-patroon);
+  background-size: var(--ruit) var(--ruit);
+}
+.ruit-band {
+  height: 28px;
+  background-color: var(--wit);
+  background-image: var(--ruit-patroon);
+  background-size: 28px 28px;
+}
+
+/* Knoppen */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  padding: 0.95em 1.6em;
+  border-radius: 999px;
+  border: 2px solid var(--inkt);
+  background: var(--inkt);
+  color: var(--wit);
+  font-family: var(--kop);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn-rood {
+  background: var(--rood);
+  border-color: var(--rood);
+}
+.btn-rood:hover {
+  background: var(--rood-diep);
+  border-color: var(--rood-diep);
+}
+.btn-lijn {
+  background: transparent;
+  color: var(--inkt);
+}
+.btn-lijn:hover {
+  background: var(--inkt);
+  color: var(--wit);
+}
+.btn-wit {
+  background: var(--wit);
+  border-color: var(--wit);
+  color: var(--rood);
+}
+.btn-wit:hover {
+  background: var(--room);
+}
+.btn .pijl {
+  transition: transform 0.2s ease;
+}
+.btn:hover .pijl {
+  transform: translateX(3px);
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  border-radius: 999px;
+  background: var(--rood);
+  color: var(--wit);
+  font-family: var(--kop);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Ronde prijs-stempel */
+.stempel {
+  display: grid;
+  place-items: center;
+  width: 9.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--rood);
+  color: var(--wit);
+  text-align: center;
+  font-family: var(--kop);
+  text-transform: uppercase;
+  box-shadow: 0 0 0 6px var(--wit), 0 14px 30px rgba(35, 24, 22, 0.22);
+  transform: rotate(-10deg);
+}
+.stempel b {
+  display: block;
+  font-size: 2.3rem;
+  font-weight: 900;
+  line-height: 1;
+}
+.stempel span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+/* Lopende band met de smaken */
+.ticker {
+  overflow: hidden;
+  background: var(--rood);
+  color: var(--wit);
+  border-block: 3px solid var(--inkt);
+}
+.ticker-baan {
+  display: flex;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+.ticker-baan span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 0.85rem 1.4rem 0.85rem 0;
+  font-family: var(--kop);
+  font-weight: 800;
+  font-size: clamp(1.2rem, 2.4vw, 1.75rem);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ticker-baan span::after {
+  content: '';
+  width: 0.6em;
+  height: 0.6em;
+  background: var(--wit);
+  border-radius: 50%;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Inkomende elementen */
+.in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.in.zichtbaar {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .ticker-baan {
+    animation: none;
+  }
+  .in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Paginakop voor de subpagina's */
+.paginakop {
+  padding-block: clamp(3.5rem, 8vw, 6rem) clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--lijn);
+}
+.paginakop h1 {
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  max-width: 14ch;
+}
+.paginakop .lead {
+  margin-top: 1.5rem;
+}
+
+.prose {
+  max-width: 44rem;
+}
+.prose h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin: 2.5rem 0 1rem;
+}
+.prose ul {
+  padding-left: 1.2em;
+}
+.prose li {
+  margin-bottom: 0.5em;
+}
+.prose li::marker {
+  color: var(--rood);
+}

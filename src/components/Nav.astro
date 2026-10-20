@@ -1,0 +1,165 @@
+---
+import Logo from './Logo.astro';
+
+const links = [
+  { href: '/#assortiment', label: 'Assortiment' },
+  { href: '/over-ons', label: 'Over ons' },
+  { href: '/favv-goedkeuring', label: 'FAVV' },
+  { href: '/contact', label: 'Contact' },
+];
+const pad = Astro.url.pathname.replace(/\.html$/, '');
+---
+
+<header class="nav">
+  <div class="wrap nav-binnen">
+    <a href="/" class="nav-logo" aria-label="Drogeworsten.be – home"><Logo klein /></a>
+
+    <nav aria-label="Hoofdmenu">
+      <ul class="nav-links">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} aria-current={pad === l.href ? 'page' : undefined}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a href="/contact" class="btn btn-rood nav-cta">Word verkooppunt</a>
+
+    <details class="nav-mobiel">
+      <summary aria-label="Menu"><span></span><span></span></summary>
+      <div class="nav-paneel">
+        {links.map((l) => <a href={l.href}>{l.label}</a>)}
+        <a href="/contact" class="btn btn-rood">Word verkooppunt</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--room) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--lijn);
+  }
+  .nav-binnen {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 76px;
+  }
+  .nav-logo {
+    text-decoration: none;
+    margin-right: auto;
+  }
+  .nav-logo:hover :global(.logo-man) {
+    transform: rotate(-6deg) scale(1.05);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    position: relative;
+    font-family: var(--kop);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--rood);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+  .nav-links a:hover::after,
+  .nav-links a[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+  .nav-cta {
+    padding: 0.7em 1.3em;
+    font-size: 0.85rem;
+  }
+
+  .nav-mobiel {
+    display: none;
+  }
+  .nav-mobiel summary {
+    list-style: none;
+    display: grid;
+    gap: 6px;
+    place-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--inkt);
+    cursor: pointer;
+  }
+  .nav-mobiel summary::-webkit-details-marker {
+    display: none;
+  }
+  .nav-mobiel summary span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--wit);
+    transition: transform 0.25s ease;
+  }
+  .nav-mobiel[open] summary span:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+  .nav-mobiel[open] summary span:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+  .nav-paneel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem 16px 1.5rem;
+    background: var(--room);
+    border-bottom: 1px solid var(--lijn);
+    box-shadow: 0 20px 30px rgba(35, 24, 22, 0.08);
+  }
+  .nav-paneel a:not(.btn) {
+    padding: 0.7rem 0;
+    font-family: var(--kop);
+    font-weight: 800;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid var(--lijn);
+  }
+  .nav-paneel .btn {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    nav,
+    .nav-cta {
+      display: none;
+    }
+    .nav-mobiel {
+      display: block;
+    }
+  }
+</style>

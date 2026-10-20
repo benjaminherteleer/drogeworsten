@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  titel?: string;
+  beschrijving?: string;
+}
+const {
+  titel,
+  beschrijving = 'Ambachtelijke droge worsten uit Ledegem voor horeca en kleinhandel. Gewoon, gerookt, pikant, merguez en Rumbeekse. FAVV-gecertificeerd.',
+} = Astro.props;
+const volledigeTitel = titel ? `${titel} – Drogeworsten.be` : 'Drogeworsten.be – Ambachtelijke droge worsten voor horeca & kleinhandel';
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), Astro.site);
+---
+
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{volledigeTitel}</title>
+    <meta name="description" content={beschrijving} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#d3202a" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:site_name" content="Drogeworsten.be" />
+    <meta property="og:title" content={volledigeTitel} />
+    <meta property="og:description" content={beschrijving} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Rubik:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a href="#inhoud" class="skip">Naar de inhoud</a>
+    <Nav />
+    <main id="inhoud">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      const io = new IntersectionObserver(
+        (items) =>
+          items.forEach((i) => {
+            if (i.isIntersecting) {
+              i.target.classList.add('zichtbaar');
+              io.unobserve(i.target);
+            }
+          }),
+        { rootMargin: '0px 0px -8% 0px' },
+      );
+      document.querySelectorAll('.in').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .skip {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--inkt);
+    color: var(--wit);
+  }
+  .skip:focus {
+    left: 1rem;
+  }
+</style>

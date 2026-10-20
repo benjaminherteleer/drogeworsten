@@ -1,0 +1,108 @@
+---
+import Logo from './Logo.astro';
+import { contact } from '../data/site';
+---
+
+<footer class="footer">
+  <div class="ruit-band" aria-hidden="true"></div>
+  <div class="wrap footer-grid">
+    <div class="footer-merk">
+      <Logo licht />
+      <p>Ambachtelijke droge worsten uit Ledegem, voor horeca en kleinhandel.</p>
+      <p class="footer-fr">Ook in het Frans: <a href="https://saucisses-seches.be">saucisses-seches.be</a></p>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href={contact.telefoonLink}>{contact.telefoon}</a></li>
+        <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+        <li>{contact.straat}<br />{contact.gemeente}</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Pagina’s</h4>
+      <ul>
+        <li><a href="/#assortiment">Assortiment</a></li>
+        <li><a href="/over-ons">Over ons</a></li>
+        <li><a href="/favv-goedkeuring">FAVV-goedkeuring</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Volg ons</h4>
+      <ul>
+        <li><a href={contact.instagram} rel="noopener" target="_blank">Instagram</a></li>
+        <li><a href={contact.facebook} rel="noopener" target="_blank">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap footer-onder">
+    <span>© {new Date().getFullYear()} Drogeworsten.be</span>
+    <span>BTW {contact.btw}</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--inkt);
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.95rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr repeat(3, 1fr);
+    gap: 2.5rem;
+    padding-block: 4.5rem 3rem;
+  }
+  .footer-merk p {
+    margin-top: 1.25rem;
+    max-width: 26ch;
+  }
+  .footer-merk .footer-fr {
+    font-size: 0.85rem;
+  }
+  h4 {
+    color: var(--wit);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--wit);
+    text-decoration: underline;
+    text-decoration-color: var(--rood);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+  .footer-onder {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-block: 1.5rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.8rem;
+  }
+  @media (max-width: 800px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-merk {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

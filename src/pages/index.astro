@@ -1,0 +1,592 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import mannetje from '../assets/logo/mannetje.png';
+import toonbank from '../assets/worsten/toonbank.jpg';
+import { worsten, prijs, contact } from '../data/site';
+
+const [uitgelicht, ...rest] = worsten;
+const smaken = worsten.map((w) => w.naam);
+---
+
+<Base>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-tekst">
+        <p class="kicker">Ambachtelijk uit Ledegem</p>
+        <h1>Droge worsten <span class="rood">met karakter.</span></h1>
+        <p class="lead">
+          Vijf smaken, één vakmanschap. Al 7 jaar leveren we de lekkerste droge worsten aan horeca en kleinhandel:
+          80% varkensvlees, 20% vet en onze eigen kruidenmix.
+        </p>
+        <div class="hero-knoppen">
+          <a href="/contact" class="btn btn-rood">Word verkooppunt <span class="pijl">→</span></a>
+          <a href="#assortiment" class="btn btn-lijn">Ontdek de smaken</a>
+        </div>
+      </div>
+
+      <div class="hero-beeld">
+        <div class="hero-doek ruit" aria-hidden="true"></div>
+        <Image
+          src={mannetje}
+          alt="Het Drogeworsten-mannetje met slingers droge worsten"
+          widths={[360, 560, 760]}
+          sizes="(max-width: 900px) 70vw, 480px"
+          class="hero-man"
+          loading="eager"
+        />
+        <div class="stempel hero-stempel">
+          <div><b>{prijs}</b><span>per stuk</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-baan">
+      {[...smaken, ...smaken, ...smaken, ...smaken].map((s) => <span>{s}</span>)}
+    </div>
+  </div>
+
+  <!-- ASSORTIMENT -->
+  <section class="sectie" id="assortiment">
+    <div class="wrap">
+      <div class="sectiekop in">
+        <div>
+          <p class="kicker">Het assortiment</p>
+          <h2>Vijf smaken.<br />Allemaal raak.</h2>
+        </div>
+        <p class="lead">
+          Elke worst start bij dezelfde basis: zuiver varkensvlees, de juiste vlees-vetverhouding en tijd. Daarna
+          maakt de kruidenmix, of het beukenhout, het verschil.
+        </p>
+      </div>
+
+      <article class="uitgelicht in">
+        <div class="uitgelicht-foto">
+          <Image src={uitgelicht.foto} alt={`${uitgelicht.naam} droge worsten op een houten plank`} widths={[600, 900, 1200]} sizes="(max-width: 900px) 100vw, 640px" />
+        </div>
+        <div class="uitgelicht-tekst">
+          <span class="tag">{uitgelicht.tag}</span>
+          <h3>{uitgelicht.naam}</h3>
+          <p>{uitgelicht.tekst}</p>
+          <ul class="kenmerken">
+            <li>Eigen kruidenmix</li>
+            <li>Half gerookt op beukenhout</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="worsten">
+        {
+          rest.map((w, i) => (
+            <article class="worst in" style={`transition-delay:${i * 80}ms`}>
+              <div class="worst-foto">
+                <Image src={w.foto} alt={`${w.naam} droge worsten op een houten plank`} widths={[400, 640]} sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 300px" />
+              </div>
+              <div class="worst-tekst">
+                <span class="worst-tag">{w.tag}</span>
+                <h3>{w.naam}</h3>
+                <p>{w.tekst}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CIJFERS -->
+  <section class="cijfers">
+    <div class="wrap cijfers-grid">
+      <div class="cijfer in"><b>80<small>%</small></b><span>zuiver varkensvlees</span></div>
+      <div class="cijfer in"><b>5</b><span>smaken, van mild tot vurig</span></div>
+      <div class="cijfer in"><b>7</b><span>jaar vakmanschap</span></div>
+      <div class="cijfer in"><b>FAVV</b><span>gecertificeerd, volledig assortiment</span></div>
+    </div>
+  </section>
+
+  <!-- VOOR HORECA & KLEINHANDEL -->
+  <section class="sectie b2b">
+    <div class="wrap b2b-grid">
+      <div class="b2b-foto in">
+        <Image src={toonbank} alt="Toonbankdisplay met de vijf soorten droge worsten op een geruite achtergrond" widths={[500, 800]} sizes="(max-width: 900px) 90vw, 460px" />
+        <div class="stempel b2b-stempel"><div><b>{prijs}</b><span>per stuk</span></div></div>
+      </div>
+      <div class="b2b-tekst in">
+        <p class="kicker">Voor horeca &amp; kleinhandel</p>
+        <h2>Een display dat zichzelf verkoopt.</h2>
+        <p class="lead">
+          Wij leveren aan cafés, zaken en winkels. Onze worsten hangen in een herkenbaar display aan de toog of
+          toonbank, klaar om mee te nemen aan {prijs} per stuk.
+        </p>
+        <ul class="voordelen">
+          <li><b>Vijf smaken in één rek</b> Gewoon, gerookt, pikant, merguez en Rumbeekse.</li>
+          <li><b>Kwaliteit voorop</b> Elke stap van het productieproces met zorg en precisie uitgevoerd.</li>
+          <li><b>Persoonlijke service</b> Rechtstreeks contact met de maker, geen tussenpersonen.</li>
+        </ul>
+        <p class="b2b-noot">Let op: wij richten ons niet op particuliere verkoop.</p>
+        <a href="/contact" class="btn btn-rood">Vraag info aan <span class="pijl">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAVV -->
+  <section class="sectie favv">
+    <div class="wrap favv-binnen in">
+      <div class="favv-badge" aria-hidden="true">
+        <span>FAVV</span>
+        <small>goedgekeurd</small>
+      </div>
+      <div>
+        <p class="kicker">Voedselveiligheid</p>
+        <h2>Veilig, gecontroleerd en gecertificeerd.</h2>
+        <p class="lead">
+          Ons volledige assortiment is officieel gecertificeerd door het Federaal Agentschap voor de Veiligheid van de
+          Voedselketen. Onze productie wordt regelmatig grondig gecontroleerd.
+        </p>
+        <a href="/favv-goedkeuring" class="btn btn-lijn">Meer over onze certificering</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="wrap cta-grid">
+      <div>
+        <h2>Droge worsten in uw zaak?</h2>
+        <p>Bel, mail of kom langs in Ledegem. We denken graag mee over het juiste assortiment voor uw klanten.</p>
+        <div class="cta-knoppen">
+          <a href={contact.telefoonLink} class="btn btn-wit">{contact.telefoon}</a>
+          <a href={`mailto:${contact.email}`} class="btn cta-mail">{contact.email}</a>
+        </div>
+      </div>
+      <Image src={mannetje} alt="" width={340} class="cta-man" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .rood {
+    color: var(--rood);
+  }
+
+  /* Hero */
+  .hero {
+    padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3.5rem, 7vw, 6rem);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+  .hero h1 .rood {
+    display: block;
+  }
+  .hero .lead {
+    margin-top: 1.75rem;
+  }
+  .hero-knoppen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .hero-beeld {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+  }
+  .hero-doek {
+    position: absolute;
+    inset: 6%;
+    border-radius: 36px;
+    transform: rotate(4deg);
+    box-shadow: 0 30px 60px rgba(164, 30, 43, 0.25);
+    --ruit: 52px;
+  }
+  .hero-man {
+    position: relative;
+    width: 82%;
+    filter: drop-shadow(0 18px 24px rgba(35, 24, 22, 0.25));
+    animation: zweef 6s ease-in-out infinite;
+  }
+  .hero-stempel {
+    position: absolute;
+    right: -2%;
+    bottom: 4%;
+  }
+  @keyframes zweef {
+    50% {
+      transform: translateY(-10px) rotate(-1.5deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-man {
+      animation: none;
+    }
+  }
+
+  /* Sectiekop */
+  .sectiekop {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+  .sectiekop .lead {
+    margin: 0;
+  }
+
+  /* Uitgelichte worst */
+  .uitgelicht {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    background: var(--wit);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 1px 0 var(--lijn);
+    margin-bottom: 1.25rem;
+  }
+  .uitgelicht-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .uitgelicht-tekst {
+    padding: clamp(2rem, 4vw, 3.5rem);
+    align-self: center;
+  }
+  .uitgelicht h3 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--rood);
+    margin: 1rem 0;
+  }
+  .kenmerken {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .kenmerken li {
+    padding: 0.4em 0.9em;
+    border: 1.5px solid var(--inkt);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* Raster met worsten */
+  .worsten {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .worst {
+    display: flex;
+    flex-direction: column;
+    background: var(--wit);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition:
+      opacity 0.7s ease,
+      transform 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+  .worst.zichtbaar:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 40px rgba(35, 24, 22, 0.12);
+  }
+  .worst-foto {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .worst-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .worst:hover .worst-foto img {
+    transform: scale(1.05);
+  }
+  .worst-tekst {
+    padding: 1.4rem 1.4rem 1.6rem;
+  }
+  .worst-tag {
+    font-family: var(--kop);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rood);
+  }
+  .worst h3 {
+    font-size: 1.75rem;
+    margin: 0.4rem 0 0.75rem;
+  }
+  .worst p {
+    font-size: 0.95rem;
+    color: var(--inkt-zacht);
+    margin: 0;
+  }
+
+  /* Cijfers */
+  .cijfers {
+    background: var(--inkt);
+    color: var(--wit);
+    padding-block: clamp(3rem, 6vw, 4.5rem);
+  }
+  .cijfers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  .cijfer {
+    border-left: 3px solid var(--rood);
+    padding-left: 1.25rem;
+  }
+  .cijfer b {
+    display: block;
+    font-family: var(--kop);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    line-height: 1;
+  }
+  .cijfer small {
+    font-size: 0.55em;
+    color: var(--rood);
+  }
+  .cijfer span {
+    display: block;
+    margin-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+  }
+
+  /* B2B */
+  .b2b {
+    background: var(--room-2);
+  }
+  .b2b-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1fr;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .b2b-foto {
+    position: relative;
+  }
+  .b2b-foto img {
+    border-radius: var(--radius);
+    transform: rotate(-2deg);
+    box-shadow: 0 30px 60px rgba(35, 24, 22, 0.18);
+    border: 8px solid var(--wit);
+  }
+  .b2b-stempel {
+    position: absolute;
+    right: -1.5rem;
+    top: 2rem;
+    width: 8rem;
+  }
+  .b2b-stempel b {
+    font-size: 1.9rem;
+  }
+  .b2b h2 {
+    max-width: 12ch;
+  }
+  .b2b .lead {
+    margin-top: 1.5rem;
+  }
+  .voordelen {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 1.5rem;
+    display: grid;
+    gap: 1rem;
+  }
+  .voordelen li {
+    padding-left: 2rem;
+    position: relative;
+    color: var(--inkt-zacht);
+  }
+  .voordelen li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.3em;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--rood);
+    box-shadow: inset 0 0 0 4px var(--room-2);
+    border: 2px solid var(--rood);
+  }
+  .voordelen b {
+    display: block;
+    color: var(--inkt);
+    font-family: var(--kop);
+  }
+  .b2b-noot {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--inkt-zacht);
+  }
+
+  /* FAVV */
+  .favv-binnen {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    max-width: 980px;
+  }
+  .favv h2 {
+    max-width: 16ch;
+  }
+  .favv .lead {
+    margin-top: 1.25rem;
+  }
+  .favv-badge {
+    display: grid;
+    place-content: center;
+    text-align: center;
+    width: clamp(9rem, 18vw, 13rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px dashed var(--rood);
+    outline: 10px solid var(--wit);
+    outline-offset: -16px;
+    background: var(--wit);
+    color: var(--rood);
+    font-family: var(--kop);
+    text-transform: uppercase;
+  }
+  .favv-badge span {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 900;
+    line-height: 1;
+  }
+  .favv-badge small {
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    font-size: 0.75rem;
+  }
+
+  /* CTA */
+  .cta {
+    background: var(--rood);
+    color: var(--wit);
+    overflow: hidden;
+  }
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 2rem;
+    padding-top: clamp(3.5rem, 7vw, 5.5rem);
+  }
+  .cta-grid > div {
+    padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
+  }
+  .cta h2 {
+    font-size: clamp(2.4rem, 6vw, 4.75rem);
+    max-width: 12ch;
+  }
+  .cta p {
+    margin-top: 1.25rem;
+    max-width: 36em;
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .cta-knoppen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .cta-mail {
+    background: transparent;
+    border-color: var(--wit);
+    text-transform: none;
+  }
+  .cta-mail:hover {
+    background: var(--wit);
+    color: var(--rood);
+  }
+  .cta-man {
+    width: clamp(12rem, 24vw, 20rem);
+    margin-bottom: -2.5rem;
+    transform: rotate(6deg);
+  }
+
+  /* Responsief */
+  @media (max-width: 1000px) {
+    .worsten {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .cijfers-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 900px) {
+    .hero-grid,
+    .sectiekop,
+    .uitgelicht,
+    .b2b-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-beeld {
+      max-width: 460px;
+      width: 100%;
+      margin-inline: auto;
+    }
+    .uitgelicht-foto {
+      aspect-ratio: 16 / 10;
+    }
+    .b2b-foto {
+      max-width: 420px;
+      margin-inline: auto;
+    }
+    .cta-grid {
+      grid-template-columns: 1fr;
+    }
+    .cta-grid > div {
+      padding-bottom: 0;
+    }
+    .cta-man {
+      justify-self: end;
+      margin-top: -1rem;
+    }
+  }
+  @media (max-width: 600px) {
+    .worsten {
+      grid-template-columns: 1fr;
+    }
+    .favv-binnen {
+      grid-template-columns: 1fr;
+    }
+    .hero-stempel {
+      width: 7.5rem;
+      right: 0;
+    }
+    .hero-stempel b {
+      font-size: 1.8rem;
+    }
+    .b2b-stempel {
+      right: -0.5rem;
+      width: 6.5rem;
+    }
+    .b2b-stempel b {
+      font-size: 1.5rem;
+    }
+  }
+</style>

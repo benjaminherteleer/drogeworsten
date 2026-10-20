@@ -1,0 +1,5 @@
+/pages/over-ons          /over-ons          301
+/pages/contact           /contact           301
+/pages/favv-goedkeuring  /favv-goedkeuring  301
+/collections/*           /#assortiment      301
+/products/*              /#assortiment      301

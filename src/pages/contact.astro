@@ -1,0 +1,193 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import mannetje from '../assets/logo/mannetje.png';
+import { contact } from '../data/site';
+---
+
+<Base titel="Contact" beschrijving="Contacteer Drogeworsten.be in Ledegem: +32 479 59 00 88 of info@drogeworsten.be.">
+  <section class="paginakop">
+    <div class="wrap">
+      <p class="kicker">Contact</p>
+      <h1>Zin in een babbel?</h1>
+      <p class="lead">
+        Horeca of kleinhandel? Vertel ons wat over uw zaak, dan nemen we snel contact op. Bellen mag natuurlijk ook.
+      </p>
+    </div>
+  </section>
+
+  <section class="sectie">
+    <div class="wrap contact-grid">
+      <div class="gegevens">
+        <a class="gegeven" href={contact.telefoonLink}>
+          <span class="label">Bel ons</span>
+          <span class="waarde">{contact.telefoon}</span>
+        </a>
+        <a class="gegeven" href={`mailto:${contact.email}`}>
+          <span class="label">Mail ons</span>
+          <span class="waarde">{contact.email}</span>
+        </a>
+        <a class="gegeven" href="https://maps.google.com/?q=Begijnestraat+53,+8880+Ledegem" target="_blank" rel="noopener">
+          <span class="label">Adres</span>
+          <span class="waarde">{contact.straat}<br />{contact.gemeente}</span>
+        </a>
+        <div class="doek ruit" aria-hidden="true">
+          <Image src={mannetje} alt="" width={260} />
+        </div>
+      </div>
+
+      <form class="formulier" id="contactformulier">
+        <h2>Stuur een bericht</h2>
+        <div class="rij">
+          <label>Naam<input name="naam" autocomplete="name" required /></label>
+          <label>Zaak<input name="zaak" autocomplete="organization" /></label>
+        </div>
+        <div class="rij">
+          <label>E-mail<input type="email" name="email" autocomplete="email" required /></label>
+          <label>Telefoon<input type="tel" name="telefoon" autocomplete="tel" /></label>
+        </div>
+        <label>Bericht<textarea name="bericht" rows="6" required></textarea></label>
+        <button class="btn btn-rood" type="submit">Verstuur <span class="pijl">→</span></button>
+        <p class="noot">Wij richten ons op horeca en kleinhandel, niet op particuliere verkoop.</p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Statische site: het formulier opent een kant-en-klare mail naar info@drogeworsten.be.
+  const form = document.getElementById('contactformulier') as HTMLFormElement;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const regels = [
+      `Naam: ${d.get('naam')}`,
+      `Zaak: ${d.get('zaak') || '-'}`,
+      `E-mail: ${d.get('email')}`,
+      `Telefoon: ${d.get('telefoon') || '-'}`,
+      '',
+      String(d.get('bericht')),
+    ];
+    const onderwerp = `Contact via de website${d.get('zaak') ? ` – ${d.get('zaak')}` : ''}`;
+    location.href = `mailto:info@drogeworsten.be?subject=${encodeURIComponent(onderwerp)}&body=${encodeURIComponent(regels.join('\n'))}`;
+  });
+</script>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .gegevens {
+    display: grid;
+    gap: 1rem;
+  }
+  .gegeven {
+    display: block;
+    padding: 1.4rem 1.6rem;
+    background: var(--wit);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .gegeven:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px rgba(35, 24, 22, 0.1);
+  }
+  .label {
+    display: block;
+    font-family: var(--kop);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rood);
+  }
+  .waarde {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: var(--kop);
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+  .doek {
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    border-radius: var(--radius);
+    --ruit: 36px;
+  }
+  .doek img {
+    width: 55%;
+    filter: drop-shadow(0 12px 18px rgba(35, 24, 22, 0.25));
+  }
+
+  .formulier {
+    background: var(--wit);
+    border-radius: var(--radius);
+    padding: clamp(1.75rem, 4vw, 3rem);
+    display: grid;
+    gap: 1.1rem;
+  }
+  .formulier h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin-bottom: 0.5rem;
+  }
+  .rij {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+  label {
+    display: grid;
+    gap: 0.4rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--lijn);
+    border-radius: 12px;
+    background: var(--room);
+    font: inherit;
+    font-size: 1rem;
+    color: inherit;
+    transition: border-color 0.2s ease;
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--rood);
+    background: var(--wit);
+  }
+  .formulier .btn {
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+  .noot {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--inkt-zacht);
+  }
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    .doek {
+      display: none;
+    }
+  }
+  @media (max-width: 560px) {
+    .rij {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
