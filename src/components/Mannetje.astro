@@ -1,0 +1,109 @@
+---
+import { Image } from 'astro:assets';
+import zonderOgen from '../assets/logo/mannetje-zonder-ogen.png';
+
+interface Props {
+  class?: string;
+  breedte?: string;
+  alt?: string;
+  laden?: 'eager' | 'lazy';
+}
+const { class: klasse, breedte = '480px', alt = 'Het Drogeworsten-mannetje met slingers droge worsten', laden = 'lazy' } = Astro.props;
+
+// Middelpunt en grootte van de ogen, in % van de tekening.
+const ogen = [
+  { x: 47.09, y: 16.58 },
+  { x: 57.58, y: 16.1 },
+];
+---
+
+<div class:list={['mannetje', klasse]} data-mannetje title="Klik maar eens!">
+  <div class="man-lijf">
+    <Image src={zonderOgen} alt={alt} widths={[360, 560, 760, 1040]} sizes={`(max-width: 900px) 70vw, ${breedte}`} loading={laden} />
+    {
+      ogen.map((o) => (
+        <span class="oog" style={`left:${o.x}%;top:${o.y}%`} aria-hidden="true">
+          <span class="pupil" />
+        </span>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .mannetje {
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .man-lijf {
+    position: relative;
+    transform-origin: 50% 100%;
+    animation: wiebel 4.5s ease-in-out infinite;
+  }
+  .man-lijf img {
+    width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .oog {
+    position: absolute;
+    width: 5%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+  }
+  .pupil {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #a91d2b;
+    transform: translate(var(--px, 0px), var(--py, 0px)) scaleY(var(--knipper, 1));
+    transition: transform 0.12s ease-out;
+  }
+  .mannetje.knipper .pupil {
+    --knipper: 0.12;
+  }
+  .mannetje.spring .man-lijf {
+    animation: spring 0.7s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  .mannetje:hover .man-lijf {
+    animation-duration: 1.6s;
+  }
+
+  @keyframes wiebel {
+    0%,
+    100% {
+      transform: rotate(-1.5deg) scale(1, 1);
+    }
+    25% {
+      transform: rotate(0deg) scale(1.01, 0.985);
+    }
+    50% {
+      transform: rotate(1.5deg) scale(1, 1);
+    }
+    75% {
+      transform: rotate(0deg) scale(0.99, 1.015);
+    }
+  }
+  @keyframes spring {
+    0% {
+      transform: scale(1.06, 0.9);
+    }
+    35% {
+      transform: translateY(-14%) scale(0.95, 1.06) rotate(-4deg);
+    }
+    70% {
+      transform: translateY(0) scale(1.05, 0.94);
+    }
+    100% {
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .man-lijf,
+    .mannetje.spring .man-lijf {
+      animation: none;
+    }
+  }
+</style>

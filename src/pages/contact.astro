@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import mannetje from '../assets/logo/mannetje.png';
+import Mannetje from '../components/Mannetje.astro';
 import { contact } from '../data/site';
 ---
 
@@ -32,7 +32,7 @@ import { contact } from '../data/site';
           <span class="waarde">{contact.straat}<br />{contact.gemeente}</span>
         </a>
         <div class="doek ruit" aria-hidden="true">
-          <Image src={mannetje} alt="" width={260} />
+          <Mannetje alt="" breedte="260px" />
         </div>
       </div>
 
@@ -123,7 +123,7 @@ import { contact } from '../data/site';
     border-radius: var(--radius);
     --ruit: 36px;
   }
-  .doek img {
+  .doek :global(.mannetje) {
     width: 55%;
     filter: drop-shadow(0 12px 18px rgba(35, 24, 22, 0.25));
   }

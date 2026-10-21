@@ -1,12 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import mannetje from '../assets/logo/mannetje.png';
+import Mannetje from '../components/Mannetje.astro';
+import Plakje from '../components/Plakje.astro';
 import toonbank from '../assets/worsten/toonbank.jpg';
 import { worsten, prijs, contact } from '../data/site';
 
 const [uitgelicht, ...rest] = worsten;
 const smaken = worsten.map((w) => w.naam);
+const kop = ['Droge', 'worsten'];
 ---
 
 <Base>
@@ -15,7 +17,18 @@ const smaken = worsten.map((w) => w.naam);
     <div class="wrap hero-grid">
       <div class="hero-tekst">
         <p class="kicker">Ambachtelijk uit Ledegem</p>
-        <h1>Droge worsten <span class="rood">met karakter.</span></h1>
+        <h1 class="woorden">
+          {kop.map((w, i) => <><span class="w"><span style={`--i:${i}`}>{w}</span></span>{' '}</>)}
+          <span class="rood">
+            <span class="w"><span style="--i:2">met</span></span>{' '}
+            <span class="karakter"
+              ><span class="w"><span style="--i:3">karakter.</span></span>
+              <svg class="krabbel" viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"
+                ><path d="M4 18 C 60 6, 110 26, 160 14 S 250 8, 296 16" /></svg
+              ></span
+            >
+          </span>
+        </h1>
         <p class="lead">
           Vijf smaken, één vakmanschap. Al 7 jaar leveren we de lekkerste droge worsten aan horeca en kleinhandel:
           80% varkensvlees, 20% vet en onze eigen kruidenmix.
@@ -26,27 +39,35 @@ const smaken = worsten.map((w) => w.naam);
         </div>
       </div>
 
-      <div class="hero-beeld">
+      <div class="hero-beeld" data-tilt="10">
         <div class="hero-doek ruit" aria-hidden="true"></div>
-        <Image
-          src={mannetje}
-          alt="Het Drogeworsten-mannetje met slingers droge worsten"
-          widths={[360, 560, 760]}
-          sizes="(max-width: 900px) 70vw, 480px"
-          class="hero-man"
-          loading="eager"
-        />
-        <div class="stempel hero-stempel">
-          <div><b>{prijs}</b><span>per stuk</span></div>
+        <Plakje class="zweef zweef-1" zaad={3} />
+        <Plakje class="zweef zweef-2" zaad={8} />
+        <Plakje class="zweef zweef-3" zaad={5} />
+        <Mannetje class="hero-man" laden="eager" />
+        <div class="hero-stempel">
+          <svg class="rondtekst" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><path id="cirkel" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" /></defs>
+            <text><textPath href="#cirkel">Ambachtelijk • Uit Ledegem • Vijf smaken • Al 7 jaar • </textPath></text>
+          </svg>
+          <div class="stempel"><div><b>{prijs}</b><span>per stuk</span></div></div>
         </div>
+        <p class="klik-hint" aria-hidden="true">klik op mij!</p>
       </div>
     </div>
   </section>
 
-  <!-- TICKER -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-baan">
-      {[...smaken, ...smaken, ...smaken, ...smaken].map((s) => <span>{s}</span>)}
+  <!-- TICKERS -->
+  <div class="tickers" aria-hidden="true">
+    <div class="ticker ticker-2">
+      <div class="ticker-baan">
+        {[...Array(4)].flatMap(() => ['Droge worsten', 'Horeca', 'Kleinhandel', 'FAVV']).map((s) => <span>{s}</span>)}
+      </div>
+    </div>
+    <div class="ticker">
+      <div class="ticker-baan">
+        {[...smaken, ...smaken, ...smaken, ...smaken].map((s) => <span>{s}</span>)}
+      </div>
     </div>
   </div>
 
@@ -56,7 +77,7 @@ const smaken = worsten.map((w) => w.naam);
       <div class="sectiekop in">
         <div>
           <p class="kicker">Het assortiment</p>
-          <h2>Vijf smaken.<br />Allemaal raak.</h2>
+          <h2>Vijf smaken.<br />Allemaal <span class="markeer">raak.</span></h2>
         </div>
         <p class="lead">
           Elke worst start bij dezelfde basis: zuiver varkensvlees, de juiste vlees-vetverhouding en tijd. Daarna
@@ -65,6 +86,7 @@ const smaken = worsten.map((w) => w.naam);
       </div>
 
       <article class="uitgelicht in">
+        <Plakje class="uitgelicht-plakje" zaad={11} />
         <div class="uitgelicht-foto">
           <Image src={uitgelicht.foto} alt={`${uitgelicht.naam} droge worsten op een houten plank`} widths={[600, 900, 1200]} sizes="(max-width: 900px) 100vw, 640px" />
         </div>
@@ -82,7 +104,7 @@ const smaken = worsten.map((w) => w.naam);
       <div class="worsten">
         {
           rest.map((w, i) => (
-            <article class="worst in" style={`transition-delay:${i * 80}ms`}>
+            <article class="worst in" style={`transition-delay:${i * 80}ms`} data-tilt="9" data-glans>
               <div class="worst-foto">
                 <Image src={w.foto} alt={`${w.naam} droge worsten op een houten plank`} widths={[400, 640]} sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 300px" />
               </div>
@@ -101,9 +123,9 @@ const smaken = worsten.map((w) => w.naam);
   <!-- CIJFERS -->
   <section class="cijfers">
     <div class="wrap cijfers-grid">
-      <div class="cijfer in"><b>80<small>%</small></b><span>zuiver varkensvlees</span></div>
-      <div class="cijfer in"><b>5</b><span>smaken, van mild tot vurig</span></div>
-      <div class="cijfer in"><b>7</b><span>jaar vakmanschap</span></div>
+      <div class="cijfer in"><b><span data-tel="80">80</span><small>%</small></b><span>zuiver varkensvlees</span></div>
+      <div class="cijfer in"><b data-tel="5">5</b><span>smaken, van mild tot vurig</span></div>
+      <div class="cijfer in"><b data-tel="7">7</b><span>jaar vakmanschap</span></div>
       <div class="cijfer in"><b>FAVV</b><span>gecertificeerd, volledig assortiment</span></div>
     </div>
   </section>
@@ -111,13 +133,13 @@ const smaken = worsten.map((w) => w.naam);
   <!-- VOOR HORECA & KLEINHANDEL -->
   <section class="sectie b2b">
     <div class="wrap b2b-grid">
-      <div class="b2b-foto in">
+      <div class="b2b-foto in" data-tilt="6">
         <Image src={toonbank} alt="Toonbankdisplay met de vijf soorten droge worsten op een geruite achtergrond" widths={[500, 800]} sizes="(max-width: 900px) 90vw, 460px" />
         <div class="stempel b2b-stempel"><div><b>{prijs}</b><span>per stuk</span></div></div>
       </div>
       <div class="b2b-tekst in">
         <p class="kicker">Voor horeca &amp; kleinhandel</p>
-        <h2>Een display dat zichzelf verkoopt.</h2>
+        <h2>Een display dat <span class="markeer">zichzelf</span> verkoopt.</h2>
         <p class="lead">
           Wij leveren aan cafés, zaken en winkels. Onze worsten hangen in een herkenbaar display aan de toog of
           toonbank, klaar om mee te nemen aan {prijs} per stuk.
@@ -163,7 +185,7 @@ const smaken = worsten.map((w) => w.naam);
           <a href={`mailto:${contact.email}`} class="btn cta-mail">{contact.email}</a>
         </div>
       </div>
-      <Image src={mannetje} alt="" width={340} class="cta-man" />
+      <div class="cta-man in"><Mannetje alt="" breedte="320px" /></div>
     </div>
   </section>
 </Base>
@@ -210,24 +232,102 @@ const smaken = worsten.map((w) => w.naam);
     box-shadow: 0 30px 60px rgba(164, 30, 43, 0.25);
     --ruit: 52px;
   }
-  .hero-man {
+  .hero-beeld :global(.hero-man) {
     position: relative;
-    width: 82%;
+    width: 80%;
     filter: drop-shadow(0 18px 24px rgba(35, 24, 22, 0.25));
-    animation: zweef 6s ease-in-out infinite;
+    transform: translateZ(40px);
+  }
+  .hero-doek {
+    transition: transform 0.4s ease;
+  }
+  .hero-beeld:hover .hero-doek {
+    transform: rotate(2deg) scale(1.02);
   }
   .hero-stempel {
     position: absolute;
     right: -2%;
     bottom: 4%;
+    width: 9.5rem;
+    aspect-ratio: 1;
+    transform: translateZ(70px);
   }
-  @keyframes zweef {
+  .hero-stempel .stempel {
+    width: 100%;
+  }
+  .klik-hint {
+    position: absolute;
+    left: -4%;
+    top: 10%;
+    margin: 0;
+    padding: 0.45em 0.9em;
+    border-radius: 999px;
+    background: var(--inkt);
+    color: var(--wit);
+    font-family: var(--kop);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transform: rotate(-8deg) translateZ(60px);
+    animation: knik 2.4s ease-in-out infinite;
+  }
+  .klik-hint::after {
+    content: '';
+    position: absolute;
+    right: 18%;
+    bottom: -7px;
+    border: 8px solid transparent;
+    border-bottom: 0;
+    border-top-color: var(--inkt);
+  }
+  @keyframes knik {
     50% {
-      transform: translateY(-10px) rotate(-1.5deg);
+      translate: 0 -6px;
     }
   }
+  .hero-beeld :global(.zweef) {
+    position: absolute;
+    animation: zweven 7s ease-in-out infinite;
+  }
+  .hero-beeld :global(.zweef-1) {
+    width: 4.5rem;
+    top: -2%;
+    left: 8%;
+    transform: translateZ(90px);
+  }
+  .hero-beeld :global(.zweef-2) {
+    width: 3rem;
+    top: 34%;
+    right: -4%;
+    animation-delay: -2.5s;
+    transform: translateZ(110px);
+  }
+  .hero-beeld :global(.zweef-3) {
+    width: 2.4rem;
+    bottom: 6%;
+    left: 4%;
+    animation-delay: -4.5s;
+    transform: translateZ(60px);
+  }
+  @keyframes zweven {
+    0%,
+    100% {
+      translate: 0 0;
+      rotate: 0deg;
+    }
+    50% {
+      translate: 0 -16px;
+      rotate: 25deg;
+    }
+  }
+  .karakter {
+    position: relative;
+    display: inline-block;
+  }
   @media (prefers-reduced-motion: reduce) {
-    .hero-man {
+    .klik-hint,
+    .hero-beeld :global(.zweef) {
       animation: none;
     }
   }
@@ -246,6 +346,7 @@ const smaken = worsten.map((w) => w.naam);
 
   /* Uitgelichte worst */
   .uitgelicht {
+    position: relative;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     background: var(--wit);
@@ -253,6 +354,13 @@ const smaken = worsten.map((w) => w.naam);
     overflow: hidden;
     box-shadow: 0 1px 0 var(--lijn);
     margin-bottom: 1.25rem;
+  }
+  .uitgelicht :global(.uitgelicht-plakje) {
+    position: absolute;
+    width: 5.5rem;
+    right: 2rem;
+    top: 2rem;
+    animation: draai 24s linear infinite;
   }
   .uitgelicht-foto img {
     width: 100%;
@@ -291,6 +399,7 @@ const smaken = worsten.map((w) => w.naam);
     gap: 1.25rem;
   }
   .worst {
+    position: relative;
     display: flex;
     flex-direction: column;
     background: var(--wit);
@@ -302,8 +411,18 @@ const smaken = worsten.map((w) => w.naam);
       box-shadow 0.35s ease;
   }
   .worst.zichtbaar:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 22px 40px rgba(35, 24, 22, 0.12);
+    box-shadow: 0 22px 40px rgba(35, 24, 22, 0.14);
+  }
+  .worst:hover .worst-tag {
+    animation: wiebeltag 0.5s ease;
+  }
+  @keyframes wiebeltag {
+    30% {
+      rotate: -4deg;
+    }
+    60% {
+      rotate: 3deg;
+    }
   }
   .worst-foto {
     aspect-ratio: 4 / 3;
@@ -322,6 +441,7 @@ const smaken = worsten.map((w) => w.naam);
     padding: 1.4rem 1.4rem 1.6rem;
   }
   .worst-tag {
+    display: inline-block;
     font-family: var(--kop);
     font-weight: 700;
     font-size: 0.72rem;
@@ -384,6 +504,7 @@ const smaken = worsten.map((w) => w.naam);
   }
   .b2b-foto {
     position: relative;
+    border-radius: var(--radius);
   }
   .b2b-foto img {
     border-radius: var(--radius);
@@ -524,8 +645,14 @@ const smaken = worsten.map((w) => w.naam);
   }
   .cta-man {
     width: clamp(12rem, 24vw, 20rem);
-    margin-bottom: -2.5rem;
-    transform: rotate(6deg);
+    margin-bottom: -3.5rem;
+    rotate: 6deg;
+    transform: translateY(45%);
+    opacity: 1;
+    transition: transform 1s cubic-bezier(0.3, 1.5, 0.5, 1) 0.2s;
+  }
+  .cta-man.zichtbaar {
+    transform: translateY(0);
   }
 
   /* Responsief */
@@ -577,6 +704,9 @@ const smaken = worsten.map((w) => w.naam);
     .hero-stempel {
       width: 7.5rem;
       right: 0;
+    }
+    .klik-hint {
+      left: 0;
     }
     .hero-stempel b {
       font-size: 1.8rem;
