@@ -213,33 +213,6 @@ p {
   text-transform: uppercase;
 }
 
-/* Ronde prijs-stempel */
-.stempel {
-  display: grid;
-  place-items: center;
-  width: 9.5rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--rood);
-  color: var(--wit);
-  text-align: center;
-  font-family: var(--kop);
-  text-transform: uppercase;
-  box-shadow: 0 0 0 6px var(--wit), 0 14px 30px rgba(35, 24, 22, 0.22);
-  transform: rotate(-10deg);
-}
-.stempel b {
-  display: block;
-  font-size: 2.3rem;
-  font-weight: 900;
-  line-height: 1;
-}
-.stempel span {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-}
-
 /* Inkomende elementen */
 .in {
   opacity: 0;
@@ -365,29 +338,6 @@ p {
   }
 }
 
-/* Draaiende tekst rond de prijsstempel */
-.rondtekst {
-  position: absolute;
-  inset: -16%;
-  width: 132%;
-  height: 132%;
-  animation: draai 18s linear infinite;
-  pointer-events: none;
-}
-.rondtekst text {
-  font-family: var(--kop);
-  font-weight: 800;
-  font-size: 9.6px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  fill: var(--inkt);
-}
-@keyframes draai {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* Krabbel die zichzelf tekent */
 .krabbel {
   position: absolute;
@@ -417,7 +367,6 @@ p {
     animation: none;
     transform: none;
   }
-  .rondtekst,
   .krabbel path {
     animation: none;
     stroke-dashoffset: 0;

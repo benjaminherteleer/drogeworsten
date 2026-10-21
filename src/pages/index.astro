@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Mannetje from '../components/Mannetje.astro';
 import toonbank from '../assets/worsten/toonbank.jpg';
-import { worsten, prijs, contact } from '../data/site';
+import { worsten, contact } from '../data/site';
 
 const [uitgelicht, ...rest] = worsten;
 const smaken = worsten.map((w) => w.naam);
@@ -41,13 +41,6 @@ const kop = ['Droge', 'worsten'];
       <div class="hero-beeld" data-tilt="10">
         <div class="hero-doek ruit" aria-hidden="true"></div>
         <Mannetje class="hero-man" laden="eager" />
-        <div class="hero-stempel">
-          <svg class="rondtekst" viewBox="0 0 200 200" aria-hidden="true">
-            <defs><path id="cirkel" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" /></defs>
-            <text><textPath href="#cirkel">Ambachtelijk • Uit Ledegem • Vijf smaken • Al 7 jaar • </textPath></text>
-          </svg>
-          <div class="stempel"><div><b>{prijs}</b><span>per stuk</span></div></div>
-        </div>
         <p class="klik-hint" aria-hidden="true">klik op mij!</p>
       </div>
     </div>
@@ -124,14 +117,13 @@ const kop = ['Droge', 'worsten'];
     <div class="wrap b2b-grid">
       <div class="b2b-foto in" data-tilt="6">
         <Image src={toonbank} alt="Toonbankdisplay met de vijf soorten droge worsten op een geruite achtergrond" widths={[500, 800]} sizes="(max-width: 900px) 90vw, 460px" />
-        <div class="stempel b2b-stempel"><div><b>{prijs}</b><span>per stuk</span></div></div>
       </div>
       <div class="b2b-tekst in">
         <p class="kicker">Voor horeca &amp; kleinhandel</p>
         <h2>Een display dat <span class="markeer">zichzelf</span> verkoopt.</h2>
         <p class="lead">
           Wij leveren aan cafés, zaken en winkels. Onze worsten hangen in een herkenbaar display aan de toog of
-          toonbank, klaar om mee te nemen aan {prijs} per stuk.
+          toonbank, klaar om mee te nemen.
         </p>
         <ul class="voordelen">
           <li><b>Vijf smaken in één rek</b> Gewoon, gerookt, pikant, merguez en Rumbeekse.</li>
@@ -232,17 +224,6 @@ const kop = ['Droge', 'worsten'];
   }
   .hero-beeld:hover .hero-doek {
     transform: rotate(2deg) scale(1.02);
-  }
-  .hero-stempel {
-    position: absolute;
-    right: -2%;
-    bottom: 4%;
-    width: 9.5rem;
-    aspect-ratio: 1;
-    transform: translateZ(70px);
-  }
-  .hero-stempel .stempel {
-    width: 100%;
   }
   .klik-hint {
     position: absolute;
@@ -484,15 +465,6 @@ const kop = ['Droge', 'worsten'];
     box-shadow: 0 30px 60px rgba(35, 24, 22, 0.18);
     border: 8px solid var(--wit);
   }
-  .b2b-stempel {
-    position: absolute;
-    right: -1.5rem;
-    top: 2rem;
-    width: 8rem;
-  }
-  .b2b-stempel b {
-    font-size: 1.9rem;
-  }
   .b2b h2 {
     max-width: 12ch;
   }
@@ -673,22 +645,8 @@ const kop = ['Droge', 'worsten'];
     .favv-binnen {
       grid-template-columns: 1fr;
     }
-    .hero-stempel {
-      width: 7.5rem;
-      right: 0;
-    }
     .klik-hint {
       left: 0;
-    }
-    .hero-stempel b {
-      font-size: 1.8rem;
-    }
-    .b2b-stempel {
-      right: -0.5rem;
-      width: 6.5rem;
-    }
-    .b2b-stempel b {
-      font-size: 1.5rem;
     }
   }
 </style>

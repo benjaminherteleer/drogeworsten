@@ -15,8 +15,6 @@ export const contact = {
   instagram: 'https://www.instagram.com/drogeworsten.be/',
 };
 
-export const prijs = '€ 2,50';
-
 export const worsten = [
   {
     slug: 'rumbeekse',
