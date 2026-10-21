@@ -3,8 +3,7 @@
 Nieuwe site voor drogeworsten.be (klant). Los Astro-project, volledig statisch.
 
 - `pnpm install`, dan `pnpm dev` / `pnpm build` (output in `dist/`).
-- Hosting: Cloudflare Pages, build command `pnpm build`, output `dist`, root directory `drogeworsten`.
-- `public/_redirects` stuurt de oude Shopify-URL's (`/pages/...`) door.
+- Hosting: Vercel (importeer de repo, Astro wordt herkend). `vercel.json` zorgt voor nette URL's zonder `.html` en stuurt de oude Shopify-URL's (`/pages/...`) door. `public/_redirects` doet hetzelfde op Cloudflare Pages.
 
 ## Opbouw
 

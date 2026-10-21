@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/pages/over-ons", "destination": "/over-ons", "permanent": true },
+    { "source": "/pages/contact", "destination": "/contact", "permanent": true },
+    { "source": "/pages/favv-goedkeuring", "destination": "/favv-goedkeuring", "permanent": true },
+    { "source": "/collections/:path*", "destination": "/#assortiment", "permanent": true },
+    { "source": "/products/:path*", "destination": "/#assortiment", "permanent": true }
+  ]
+}
