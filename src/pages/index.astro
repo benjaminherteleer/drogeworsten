@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Mannetje from '../components/Mannetje.astro';
-import Plakje from '../components/Plakje.astro';
 import toonbank from '../assets/worsten/toonbank.jpg';
 import { worsten, prijs, contact } from '../data/site';
 
@@ -41,9 +40,6 @@ const kop = ['Droge', 'worsten'];
 
       <div class="hero-beeld" data-tilt="10">
         <div class="hero-doek ruit" aria-hidden="true"></div>
-        <Plakje class="zweef zweef-1" zaad={3} />
-        <Plakje class="zweef zweef-2" zaad={8} />
-        <Plakje class="zweef zweef-3" zaad={5} />
         <Mannetje class="hero-man" laden="eager" />
         <div class="hero-stempel">
           <svg class="rondtekst" viewBox="0 0 200 200" aria-hidden="true">
@@ -57,19 +53,13 @@ const kop = ['Droge', 'worsten'];
     </div>
   </section>
 
-  <!-- TICKERS -->
-  <div class="tickers" aria-hidden="true">
-    <div class="ticker ticker-2">
-      <div class="ticker-baan">
-        {[...Array(4)].flatMap(() => ['Droge worsten', 'Horeca', 'Kleinhandel', 'FAVV']).map((s) => <span>{s}</span>)}
-      </div>
-    </div>
-    <div class="ticker">
-      <div class="ticker-baan">
-        {[...smaken, ...smaken, ...smaken, ...smaken].map((s) => <span>{s}</span>)}
-      </div>
-    </div>
+  <!-- SMAKENBAND, zoals bovenaan het toonbankdisplay -->
+  <div class="smakenband">
+    <ul aria-label="Onze smaken">
+      {smaken.map((s) => <li>{s}</li>)}
+    </ul>
   </div>
+  <div class="ruit-band" aria-hidden="true"></div>
 
   <!-- ASSORTIMENT -->
   <section class="sectie" id="assortiment">
@@ -86,7 +76,6 @@ const kop = ['Droge', 'worsten'];
       </div>
 
       <article class="uitgelicht in">
-        <Plakje class="uitgelicht-plakje" zaad={11} />
         <div class="uitgelicht-foto">
           <Image src={uitgelicht.foto} alt={`${uitgelicht.naam} droge worsten op een houten plank`} widths={[600, 900, 1200]} sizes="(max-width: 900px) 100vw, 640px" />
         </div>
@@ -286,50 +275,40 @@ const kop = ['Droge', 'worsten'];
       translate: 0 -6px;
     }
   }
-  .hero-beeld :global(.zweef) {
-    position: absolute;
-    animation: zweven 7s ease-in-out infinite;
-  }
-  .hero-beeld :global(.zweef-1) {
-    width: 4.5rem;
-    top: -2%;
-    left: 8%;
-    transform: translateZ(90px);
-  }
-  .hero-beeld :global(.zweef-2) {
-    width: 3rem;
-    top: 34%;
-    right: -4%;
-    animation-delay: -2.5s;
-    transform: translateZ(110px);
-  }
-  .hero-beeld :global(.zweef-3) {
-    width: 2.4rem;
-    bottom: 6%;
-    left: 4%;
-    animation-delay: -4.5s;
-    transform: translateZ(60px);
-  }
-  @keyframes zweven {
-    0%,
-    100% {
-      translate: 0 0;
-      rotate: 0deg;
-    }
-    50% {
-      translate: 0 -16px;
-      rotate: 25deg;
-    }
-  }
   .karakter {
     position: relative;
     display: inline-block;
   }
   @media (prefers-reduced-motion: reduce) {
-    .klik-hint,
-    .hero-beeld :global(.zweef) {
+    .klik-hint {
       animation: none;
     }
+  }
+
+  /* Smakenband */
+  .smakenband {
+    background: var(--inkt);
+    color: var(--wit);
+    padding: 1.1rem 16px;
+  }
+  .smakenband ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.2rem 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--kop);
+    font-weight: 800;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .smakenband li:not(:last-child)::after {
+    content: '–';
+    margin-inline: 0.7em;
+    color: var(--rood);
   }
 
   /* Sectiekop */
@@ -354,13 +333,6 @@ const kop = ['Droge', 'worsten'];
     overflow: hidden;
     box-shadow: 0 1px 0 var(--lijn);
     margin-bottom: 1.25rem;
-  }
-  .uitgelicht :global(.uitgelicht-plakje) {
-    position: absolute;
-    width: 5.5rem;
-    right: 2rem;
-    top: 2rem;
-    animation: draai 24s linear infinite;
   }
   .uitgelicht-foto img {
     width: 100%;

@@ -240,42 +240,6 @@ p {
   letter-spacing: 0.14em;
 }
 
-/* Lopende band met de smaken */
-.ticker {
-  overflow: hidden;
-  background: var(--rood);
-  color: var(--wit);
-  border-block: 3px solid var(--inkt);
-}
-.ticker-baan {
-  display: flex;
-  width: max-content;
-  animation: ticker 32s linear infinite;
-}
-.ticker-baan span {
-  display: inline-flex;
-  align-items: center;
-  gap: 1.4rem;
-  padding: 0.85rem 1.4rem 0.85rem 0;
-  font-family: var(--kop);
-  font-weight: 800;
-  font-size: clamp(1.2rem, 2.4vw, 1.75rem);
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.ticker-baan span::after {
-  content: '';
-  width: 0.6em;
-  height: 0.6em;
-  background: var(--wit);
-  border-radius: 50%;
-}
-@keyframes ticker {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* Inkomende elementen */
 .in {
   opacity: 0;
@@ -292,9 +256,6 @@ p {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .ticker-baan {
-    animation: none;
   }
   .in {
     opacity: 1;
@@ -449,42 +410,6 @@ p {
   to {
     stroke-dashoffset: 0;
   }
-}
-
-/* Twee kruisende tickers */
-.tickers {
-  position: relative;
-  padding-block: 2.4rem;
-  overflow: hidden;
-}
-.tickers .ticker {
-  position: relative;
-  transform: rotate(-2deg) scale(1.04);
-  z-index: 1;
-}
-.tickers .ticker-2 {
-  position: absolute;
-  inset: 50% 0 auto;
-  translate: 0 -50%;
-  transform: rotate(2.2deg) scale(1.04);
-  z-index: 0;
-  background: var(--inkt);
-}
-.ticker-2 .ticker-baan {
-  animation-direction: reverse;
-  animation-duration: 40s;
-}
-.ticker-2 .ticker-baan span {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--wit);
-}
-.ticker-2 .ticker-baan span::after {
-  background: var(--rood);
-}
-
-.plakje {
-  display: block;
-  filter: drop-shadow(0 10px 14px rgba(35, 24, 22, 0.18));
 }
 
 @media (prefers-reduced-motion: reduce) {
