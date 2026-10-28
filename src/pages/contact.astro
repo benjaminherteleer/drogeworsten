@@ -5,7 +5,7 @@ import Mannetje from '../components/Mannetje.astro';
 import { contact } from '../data/site';
 ---
 
-<Base titel="Contact" beschrijving="Contacteer Drogeworsten.be in Ledegem: +32 479 59 00 88 of info@drogeworsten.be.">
+<Base titel="Contact" beschrijving="Contacteer Drogeworsten.be: +32 479 59 00 88 of info@drogeworsten.be.">
   <section class="paginakop">
     <div class="wrap">
       <p class="kicker">Contact</p>
@@ -27,9 +27,9 @@ import { contact } from '../data/site';
           <span class="label">Mail ons</span>
           <span class="waarde">{contact.email}</span>
         </a>
-        <a class="gegeven" href="https://maps.google.com/?q=Begijnestraat+53,+8880+Ledegem" target="_blank" rel="noopener">
-          <span class="label">Adres</span>
-          <span class="waarde">{contact.straat}<br />{contact.gemeente}</span>
+        <a class="gegeven" href={contact.instagram} target="_blank" rel="noopener">
+          <span class="label">Volg ons</span>
+          <span class="waarde">@drogeworsten.be</span>
         </a>
         <div class="doek ruit" aria-hidden="true">
           <Mannetje alt="" breedte="260px" />

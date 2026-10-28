@@ -9,7 +9,7 @@ interface Props {
 }
 const {
   titel,
-  beschrijving = 'Ambachtelijke droge worsten uit Ledegem voor horeca en kleinhandel. Gewoon, gerookt, pikant, merguez en Rumbeekse. FAVV-gecertificeerd.',
+  beschrijving = 'Ambachtelijke droge worsten voor horeca en kleinhandel, al 10 jaar. Gewoon, gerookt, pikant, merguez en Rumbeekse. FAVV-gecertificeerd.',
 } = Astro.props;
 const volledigeTitel = titel ? `${titel} – Drogeworsten.be` : 'Drogeworsten.be – Ambachtelijke droge worsten voor horeca & kleinhandel';
 const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), Astro.site);

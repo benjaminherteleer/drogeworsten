@@ -8,8 +8,6 @@ export const contact = {
   telefoon: '+32 479 59 00 88',
   telefoonLink: 'tel:+32479590088',
   email: 'info@drogeworsten.be',
-  straat: 'Begijnestraat 53',
-  gemeente: '8880 Ledegem',
   btw: 'BE1033145515',
   facebook: 'https://www.facebook.com/profile.php?id=100039930205540',
   instagram: 'https://www.instagram.com/drogeworsten.be/',
